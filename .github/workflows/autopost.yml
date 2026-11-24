@@ -25,7 +25,11 @@ jobs:
         run: python bot.py
       - run: |
           git config user.name "AutoBot"
-          git config user.email "bot@://github.com"
-          git add seen.txt
-          git commit -m "Update seen stories" || exit 0
-          git push
+          git config user.email "bot@users.noreply.github.com"
+          if [ -f "seen.txt" ]; then
+            git add seen.txt
+            git commit -m "Update seen stories" || exit 0
+            git push
+          else
+            echo "seen.txt was not generated during this run."
+          fi
